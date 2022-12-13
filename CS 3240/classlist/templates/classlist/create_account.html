@@ -1,0 +1,167 @@
+
+{% comment %} 
+Citations:
+
+Title: Megan Kuo's django tutorial project
+URL: https://github.com/uva-cs3240-f22/django-megkuo/blob/main/polls/templates/polls/deep_thought_submit.html
+
+Title: HTML select
+URL: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+
+
+This page does not extend base.html because it can't display all of the account-accessible info
+
+{% endcomment %}
+
+<html>
+    {% load socialaccount %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">CavCourses</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                  <button class="btn me-2 btn-primary float-end" type="button" role="button">
+                      <a href="/classlist/accounts/logout" style="color:inherit"> Logout </a>
+                  </button>
+                  <img src="{{user.avatar}}" class="rounded-circle float-end" height="30" width="30">
+                  
+              </div>
+            </div>
+        </nav>
+            
+    </header>
+    
+    {% load socialaccount %}
+    <title>Create account</title>
+
+    {% block body %}
+    
+
+    <body style="background-color: cornflowerblue">
+      <style>
+        .create_account{ 
+          font-size: 1rem;
+          height: 3rem;
+          width: 20rem;
+          
+        }
+      </style>
+        {% comment %} <h1>Create an account</h1> {% endcomment %}
+    
+        
+
+        {% block content %}
+
+            <form method="POST" class="form-group">
+            {% csrf_token %}
+
+
+
+
+            <link rel="stylesheet" href="{% static 'classlist/style.css' %}">
+            <title>My account</title>
+                <body>
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            
+                            <div class="col">
+                                <!-- User info -->
+                                <div class="card-body p-4">
+                                    {% comment %} <h6>Information</h6> {% endcomment %}
+                                    {% block title %}<h2>Create an Account</h2>{% endblock %}
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                      <div class="col-12 mb-3">
+                              
+                                        <h6>Email</h6>
+                                        <p class="text-muted">{{user.email}}</p>
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                              
+                                      <h6><label for="id_username">Username</label></h6>
+                                      
+                                          <p><input class="create_account" type="text-muted" name="username" value={{user.username}} required id="id_username"></p>
+                                        
+                                  </div>
+
+
+                                        <div class="col-12 mb-3">
+                                            <h6><label for="id_major">Major</label></h6>
+                                            <p class="text-muted">
+                                                <input class="create_account" type="text" name="major" value="Unknown" required id="id_major">
+                                              
+                                            </p>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <h6><label for="id_year">Year</label></h6>
+                                          
+                                                {% comment %} <input type="text" name="year" value="Unknown" required id="id_year"> {% endcomment %}
+                                                <select class="create_account" name="year" required id="id_year">
+                                                  <option value="">--Please choose an option--</option>
+                                                  <option value="1">First year</option>
+                                                  <option value="2">Second year</option>
+                                                  <option value="3">Third year</option>
+                                                  <option value="4">Fourth year</option>
+                                                  <option value="5">Other</option>
+                                                </select>
+                                                
+                                        </div>
+                                        <div class="col-12 mb-3 mt-3">
+                                          <button type="submit" class="btn btn-success">Register</button>
+            </form>
+                                              
+                                      </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+            
+
+  
+
+  
+            
+        {% endblock %}
+
+    </body>
+
+
+{% endblock %}
+
+<footer class="bg-dark text-center text-white mt-5">
+  <!-- Grid container -->
+  <div class="container p-4">
+
+  <!-- Section: Text -->
+  <section class="mb-4">
+      <p>
+      Team A-27 | University of Virginia | CS 3240 | Fall 2022
+      </p>
+  </section>
+  <!-- Section: Text -->
+
+
+  </div>
+  <!-- Grid container -->
+
+</footer>
+
+</html>

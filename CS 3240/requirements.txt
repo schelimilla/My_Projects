@@ -1,0 +1,25 @@
+# install with: pip3 install -r requirements.txt
+# Django is needed to run Django
+Django
+
+# gunicorn is needed by Heroku to launch the web server
+gunicorn
+
+# django-heroku is ONLY needed by Heroku for their internal process
+# if you have errors with psycopg2 or django-heroku, use the code at the bottom of settings.py to avoid the error
+# the outcome of using this bypass is that locally you will need to use either SQLite or connect to Heroku's Postgres DB
+django-heroku
+
+# Required for Google Login API
+django-allauth
+
+#for static images
+whitenoise
+
+# for bootstrap
+django-bootstrap-v5
+
+# other random installs I have
+dj-database-url 
+psycopg2
+psycopg2-binary

@@ -1,0 +1,679 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block body %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load socialaccount %}
+{% load class_extras %}
+
+<style>
+    .btn-custom {
+        color: #fff;
+        background-color: #405CE6;
+        border-color: #2697f3;
+        width: 2.5em;
+        
+    }
+
+    .btn-custom:hover {
+        background-color: #a4e5f0;
+        font-weight: bold;
+    }
+</style>
+
+
+<body style="background-color: cornflowerblue">
+<br/>
+
+<div class="text-center" style="color: white">
+  <h1>Departments</h1>
+  <br>
+</div>
+
+
+    <div class="text-center mb-3" style= "color: black">
+      <h4>Jump to a department by letter:</h4>
+    </div>
+
+    <div class = "nav justify-content-center mx-auto">
+      <a href="#a" class = "btn btn-custom">A</a>
+      <a href="#b" class = "btn btn-custom">B</a>
+      <a href="#c" class = "btn btn-custom">C</a>
+      <a href="#d" class = "btn btn-custom">D</a>
+      <a href="#e" class = "btn btn-custom">E</a>
+      <a href="#f" class = "btn btn-custom">F</a>
+      <a href="#g" class = "btn btn-custom">G</a>
+      <a href="#h" class = "btn btn-custom">H</a>
+      <a href="#i" class = "btn btn-custom">I</a>
+      <a href="#j" class = "btn btn-custom">J</a>
+      <a href="#k" class = "btn btn-custom">K</a>
+      <a href="#l" class = "btn btn-custom">L</a>
+      <a href="#m" class = "btn btn-custom">M</a>
+      <a href="#n" class = "btn btn-custom">N</a>
+      <a href="#o" class = "btn btn-custom">O</a>
+      <a href="#p" class = "btn btn-custom">P</a>
+      <a href="#q" class = "btn btn-custom">Q</a>
+      <a href="#r" class = "btn btn-custom">R</a>
+      <a href="#s" class = "btn btn-custom">S</a>
+      <a href="#t" class = "btn btn-custom">T</a>
+      <a href="#u" class = "btn btn-custom">U</a>
+      <a href="#v" class = "btn btn-custom">V</a>
+      <a href="#w" class = "btn btn-custom">W</a>
+      <a href="#x" class = "btn btn-custom">X</a>
+      <a href="#y" class = "btn btn-custom">Y</a>
+      <a href="#z" class = "btn btn-custom">Z</a>
+    </div>
+    <br>
+    <br>
+
+    {% if a_depts %}
+    <div class = "section a" id="a">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>A</h1>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            {% for d in a_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if b_depts %}
+    <div class = "section b" id="b">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>B</h1>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            {% for d in b_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if c_depts %}
+    <div class = "section c" id="c">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>C</h1>
+                </div>
+            </div>
+        </div>   
+        <div class = "row">
+            {% for d in c_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if d_depts %}
+    <div class = "section d" id="d">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>D</h1>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            {% for d in d_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if e_depts %}
+    <div class = "section e" id="e">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>E</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in e_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if f_depts %}
+    <div class = "section f" id="f">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>F</h1>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            {% for d in f_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if g_depts %}
+    <div class = "section g" id="g">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>G</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in g_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if h_depts %}
+    <div class = "section h" id="h">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>H</h1>
+                </div>
+            </div>
+        </div>     
+        <div class = "row">
+            {% for d in h_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if i_depts %}
+    <div class = "section i" id="i">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>I</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in i_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if j_depts %}
+    <div class = "section j" id="j">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>J</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in j_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if k_depts %}
+    <div class = "section k" id="k">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>K</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in k_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if l_depts %}
+    <div class = "section l" id="l">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>L</h1>
+                </div>
+            </div>
+        </div> 
+        <div class = "row">
+            {% for d in l_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if m_depts %}
+    <div class = "section m" id="m">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>M</h1>
+                </div>
+            </div>
+        </div>  
+        <div class = "row">
+            {% for d in m_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if n_depts %}
+    <div class = "section n" id="n">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>N</h1>
+                </div>
+            </div>
+        </div>   
+        <div class = "row">
+            {% for d in n_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if o_depts %}
+    <div class = "row">
+        <div class="col-12">
+            <div class="text ms-5" style="color:white">
+                <h1>O</h1>
+            </div>
+        </div>
+    </div> 
+        <div class = "row">
+            {% for d in o_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if p_depts %}
+    <div class = "section p" id="p">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>P</h1>
+                </div>
+            </div>
+        </div>     
+        <div class = "row">
+            {% for d in p_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if q_depts %}
+    <div class = "section q" id="q">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>Q</h1>
+                </div>
+            </div>
+        </div>   
+        <div class = "row">
+            {% for d in q_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if r_depts %}
+    <div class = "section r" id="r">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>R</h1>
+                </div>
+            </div>
+        </div>     
+        <div class = "row">
+            {% for d in r_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if s_depts %}
+    <div class = "section s" id="s">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>S</h1>
+                </div>
+            </div>
+        </div>     
+        <div class = "row">
+            {% for d in s_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if t_depts %}
+    <div class = "section t" id="t">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>T</h1>
+                </div>
+            </div>
+        </div>     
+        <div class = "row">
+            {% for d in t_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if u_depts %}
+    <div class = "section u" id="u">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>U</h1>
+                </div>
+            </div>
+        </div>   
+        <div class = "row">
+            {% for d in u_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if v_depts %}
+    <div class = "section v" id="v">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>V</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in v_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if w_depts %}
+    <div class = "section w" id="w">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>W</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in w_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if x_depts %}
+    <div class = "section x" id="x">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>X</h1>
+                </div>
+            </div>
+        </div> 
+        <div class = "row">
+            {% for d in x_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if y_depts %}
+    <div class = "section y" id="y">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>Y</h1>
+                </div>
+            </div>
+        </div> 
+        <div class = "row">
+            {% for d in y_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if z_depts %}
+    <div class = "section z" id="z">
+        <div class = "row">
+            <div class="col-12">
+                <div class="text ms-5" style="color:white">
+                    <h1>Z</h1>
+                </div>
+            </div>
+        </div>    
+        <div class = "row">
+            {% for d in z_depts %}
+                <div class = "col-6 col-md-4 col-xl-3"> 
+                    <div class="card-deck">
+                        <div class="card mb-5 mx-auto" style="width:17rem">
+                            <h5 class="card-header">{{dept_names|get_item:d}}</h5>
+                            <a href="{{d}}/" class="btn btn-info" class = "card-footer">View all {{d}} classes</a>
+                        </div>  
+                    </div>
+                </div>     
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+
+{% endblock %}
+</html>

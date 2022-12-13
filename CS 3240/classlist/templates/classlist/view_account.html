@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% load static %}
+
+<!--
+Citations:
+
+Title: Megan Kuo's django tutorial project
+URL: https://github.com/uva-cs3240-f22/django-megkuo/blob/main/polls/templates/polls/deep_thought_submit.html 
+
+Title: Profiles
+URL: https://mdbootstrap.com/docs/standard/extended/profiles/
+-->
+
+<html>
+    <link rel="stylesheet" href="{% static 'classlist/style.css' %}">
+    <title>My account</title>
+    {% block body %}
+        <body>
+            <div class="card mb-3" style="border-radius: .5rem;">
+                <div class="row g-0">
+                    <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                        <img src="{{user.avatar}}" class="img-fluid my-5" style="width: 80px;" />
+                        <h5 class="text-dark">{{user.first_name}} {{user.last_name}}</h5>
+                        <p class="text-dark">Username: {{user.USERNAME_FIELD}}</p>
+                        <i class="far fa-edit mb-5"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <!-- User info -->
+                        <div class="card-body p-4">
+                            <h6>Information</h6>
+                            <hr class="mt-0 mb-4">
+                            <div class="row pt-1">
+                                <div class="col-6 mb-3">
+                                    <h6>Email</h6>
+                                    <p class="text-muted">{{user.email}}</p>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <h6>Major</h6>
+                                    <p class="text-muted">{{user.major}}</p>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <h6>Year</h6>
+                                    {% if user.year == 5 %}
+                                        <p class="text-muted">Other</p>
+                                    {% else %}
+                                        <p class="text-muted">{{user.year}}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Friends -->
+                        <div class="card-body p-4">
+                            <h6>Friends</h6>
+                            <hr class="mt-0 mb-4">
+                            {% if user.friends.all %}
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class ="flex-strech" scope="col">Username</th>
+                                            <th class ="flex-strech" scope="col">Major</th>
+                                            <th class ="flex-strech" scope="col">Year</th>
+                                            <th class ="flex-strech" scope="col">Schedule</th>
+                                            <th class ="flex-strech" scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    {% for other_user in user.friends.all %}
+                                        <tr>
+                                            <td>{{other_user.USERNAME_FIELD}}</td>
+                                            <td>{{other_user.major}}</td>
+                                            {% comment %} <td>{{other_user.year}}</td> {% endcomment %}
+                                            {% if other_user.year == 5 %}
+                                                <td class="text-muted">Other</td>
+                                            {% else %}
+                                                <td class="text-muted">{{other_user.year}}</td>
+                                            {% endif %}
+                                            <td><a href="/classlist/schedule/{{other_user.id}}/">{{other_user.USERNAME_FIELD}}'s schedule</a></td>
+                                            {% comment %} <td><a href="/classlist/schedule/{{other_user.id}}/comments">(comments)</a></td> {% endcomment %}
+                                            <td><a href="/remove_friend/{{other_user.id}}/">Remove Friend</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            {% else %}
+                                {% comment %} <p> No friends found. You are a lonely wumpus... :( </p> {% endcomment %}
+                                <div class="d-flex">
+                                    <p class="p-2 flex-strech">No friends found. You are a lonely wumpus... :(</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <!-- Friend Requests -->
+                        <div class="card-body p-4">
+                            <h6>Incoming Friend Requests</h6>
+                            <hr class="mt-0 mb-4">
+                            {% if in_friend_requests %}
+                                {% for friend_req in in_friend_requests %}
+                                    {% if friend_req.to_user.USERNAME_FIELD == user.USERNAME_FIELD %}
+                                        <div class="d-flex">
+                                            <p class="p-2 flex-strech">{{friend_req.from_user.USERNAME_FIELD}} wants to be your friend!</p>
+                                            <a  class="p-2 flex-strech" mr-2 href="/accept_friend_request/{{friend_req.id}}/">Accept Friend Request</a>
+                                            <a  class="p-2 flex-strech" mr-2 href="/deny_friend_request/{{friend_req.id}}/">Decline Friend Request</a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="d-flex">
+                                    <p class="p-2 flex-strech">No friend requests pending.</p>
+                                </div>
+                            {% endif %}
+                            <h6 class="mt-5">Outgoing Friend Requests</h6>
+                            <hr class="mt-0 mb-4">
+                            {% if out_friend_requests %}
+                                {% for friend_req in out_friend_requests %}
+                                        <div class="d-flex">
+                                            <p class="p-2 flex-strech">Friend request to {{friend_req.to_user.USERNAME_FIELD}} pending!</p>
+                                        </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="d-flex">
+                                    <p class="p-2 flex-strech">No friend requests pending.</p>
+                                </div>
+                            {% endif %}
+                            <a class="p-4 stretch" href="{% url 'view_users' %}" class="card-link">Find Friends</a>
+                                        
+                            
+                    </div>
+                </div>
+            </div>
+        </body>
+    {% endblock %}
+</html>
+
+            <!-- {% comment %} <form method="post" novalidate>
+                {% csrf_token %}
+                
+                <div class ="form-group">
+                      <label for="example" size="large">Email</label>
+                      <input type="text" class="form-control" placeholder="Email Address" name="title">
+                        <button type="submit" class="btn btn-primary" size="lg" aria-setsize="small" href="/send_friend_request/">Send Request</button>
+                </div>
+            </form>  {% endcomment %} -->
+
+        <!-- </ul> -->
+
+
+        <!-- <ul class="all_users">
+            
+            {% for user in all_users %}
+            {% if user not in request.user.friends.all and user != request.user %}
+            <h1> {{user}} <a href="/send_friend_request/{{user.id}}">send friend request</a></h1>
+            {% endif %}
+            {% endfor %}
+        </ul> -->
+        <!-- <ul class="all_users">
+            {% for friend_request in all_friend_requests %}
+            <h1> {{friend_request.from_user}} 
+                <a href="/accept_friend_request/{{friend_request.id}}">accept friend request</a></h1>
+            {% endfor %}
+        </ul>

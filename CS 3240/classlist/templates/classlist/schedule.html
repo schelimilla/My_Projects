@@ -1,0 +1,299 @@
+<!-- 
+    Citations:
+
+    Title: Card Columns
+    URL: https://mdbootstrap.com/docs/standard/extended/card-columns/
+
+    https://icons.getbootstrap.com/icons/trash3-fill/
+
+    title: A Perfect Square with CSS
+    URL: https://tylerduprey-52451.medium.com/a-perfect-square-with-css-964499440998
+
+    
+    https://css-tricks.com/snippets/css/complete-guide-grid/#prop-grid-template-columns-rows
+
+    Got a lot of help with the CSS and HTML stuff from my (Megan) brother, Calvin Kuo (clk3sx) -- he helped explain how CSS grid works, but I implemented everything myself
+    
+    
+
+*/
+
+    
+ -->
+
+ <html>
+    {% extends "base.html" %}
+
+    <head>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript%}
+
+        
+    </head>
+
+    {% block body %}
+
+        <body>
+
+            <!-- <body style="background-color: rgb(28, 148, 148);"> -->
+            <link rel="stylesheet" href="/static/classlist/schedule.css">
+
+            {% if valid == False %}
+            <div class="alert alert-danger alert-dismissible fade show" role=""alert>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                {% if section.course == conflict.course %}
+                {{section.course}} ({{section.course.description}}) is already in your schedule.
+                {% else %}
+                {{section.course}} ({{section.course.description}}) could not be added due to a conflict in your schedule with {{conflict.course}} ({{conflict.course.description}}).
+                {% endif %}
+            </div>
+            {% elif valid == True %}
+            <div class="alert alert-success alert-dismissible fade show" role=""alert>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                {{section.course}} ({{section.course.description}}) successfully added to schedule!
+            </div>
+            {% endif %} 
+
+            <div class="text-center" style="color:white">
+                {% if to_user.email == request.user.email %}
+                    <h1>My Schedule</h1>
+                {% else %}
+                    <h1>{{to_user.USERNAME_FIELD}}'s Schedule</h1>
+                {% endif %}
+                <br>
+            </div>
+
+            <!-- if there are classes that will not be displayed on the schedule -->
+            {% if other_meetings %}
+            {% comment %} <div class="grid-container"> {% endcomment %}
+            <div class="grid-other mx-5">
+                <div class="d-inline-flex p-2 mx-auto ms-3 me-3">
+                    <div class="text" style="vertical-align: middle; color: #000; font-size: 150%;">Other:</div>
+                    {% for meeting in other_meetings %}
+                        {% for c in the_schedule.classRoster.all %}
+                            {% if meeting.section.section_id == c.section_id %}
+                                
+                                    <div class="sq-other m-1" size="5em">
+                                        {% comment %} <div class="text-center">{{c.course.title}}</div> {% endcomment %}
+                                        <div class="text-center">{{c.course.title}} ({{meeting.section.component}})</div>
+                                        <div class="text-center">
+                                            {% comment %} {{meeting.start_time|make_list|slice:':2'|join:''}}:{{meeting.start_time|make_list|slice:'3:5'|join:''}} - {{meeting.end_time|make_list|slice:':2'|join:''}}:{{meeting.end_time|make_list|slice:'3:5'|join:''}} <br> {% endcomment %}
+                                            <div>N/A</div>
+                                            {{meeting.facility_description}}
+                                        </div>
+                                        <div class="text-center">
+                                            {% if user.email == request.user.email %}
+                                            <form action="/schedule/delete/{{c.section_id}}/" method="post">
+                                                {% csrf_token %}
+                                                
+                                                <button type = 'submit' value = "{{c.section_id}}" class = 'btn-danger btn-small' size="small">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                                    </svg>
+
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                
+                                
+                            
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+                {% endif %}                       
+            </div>
+                <!-- adding different way of displaying classes -->
+
+            
+
+
+            {% if meetings_list %}
+
+            
+
+                <div class="grid-container">
+                    <div class="grid mx-5">
+                        {% comment %} 
+                        <div class="sq sq-2">Example</div>
+                        <div class="sq sq-3">Example</div>
+                        <div class="sq sq-4">Example</div>
+                        <div class="sq sq-5">Example</div> 
+                        {% endcomment %}
+                        <!-- <div class="sq sq-6" style="grid-column: {{dotw}}; grid-row: {{st}} / span {{dur}};">Example</div> -->
+                        
+                        {% comment %} <div class="ts ts-header">header</div> {% endcomment %}
+                        {% comment %} <div class="ts"> {% endcomment %}
+
+                        
+
+                        {% for day in weekdays %}
+                            <div class="ts ts-header text-center">{{day}}</div>
+
+                        {% endfor %}
+
+                        {% for index, time in time_range %}
+                            <div class="ts ts-time" style="grid-row: {{index}} / span 60 ;">{{time}}</div>
+                        {% endfor %}
+
+                        
+                            {% for meeting in meetings_list%}
+                                
+                                {% for column, value in meeting.days_of_the_week %}
+                                    {% if value %}
+
+                                        <div class="sq" style="grid-row: {{meeting.y_position}} / span {{meeting.length}}; grid-column: {{column}};">
+                                        
+                                            {% for c in the_schedule.classRoster.all %}
+                                                {% if meeting.section.section_id == c.section_id %}
+
+
+                                                        <div class="text-center">{{c.course.title}} ({{meeting.section.component}})</div>
+                                                        {% comment %} <div class="text-center">{{meeting.section.component}}</div> {% endcomment %}
+
+                                                        <div class="text-center">
+                                                            {{meeting.start_time|make_list|slice:':2'|join:''}}:{{meeting.start_time|make_list|slice:'3:5'|join:''}} - {{meeting.end_time|make_list|slice:':2'|join:''}}:{{meeting.end_time|make_list|slice:'3:5'|join:''}} <br>
+                                                            {{meeting.facility_description}}
+                                                        </div>
+                                                        <div class="text-center">
+                                                            {% if user.email == request.user.email %}
+                                                            <form action="/schedule/delete/{{c.section_id}}/" method="post">
+                                                                {% csrf_token %}
+                                                                
+                                                                <button type = 'submit' value = "{{c.section_id}}" class = 'btn-danger btn-small' size="small">
+
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                                                    </svg>
+
+                                                                </button>
+                                                            </form>
+                                                            {% endif %}
+                                                        </div>
+                                                    
+                                                
+                                                {% endif %}
+                                            {% endfor %}
+
+
+                                        </div>
+
+                                    {% endif %}
+                                {% endfor %}  
+
+                            {% endfor %}
+                        
+                        
+                    </div>
+                </div>
+                
+            {% elif not other_meetings %}
+                {% if user.email == to_user.email%}
+                    <p style="font-size: large;" class="text-center">No classes have been added to your schedule yet.</p>
+                {% else %}
+                    <h2 style="font-size: large;" class="text-center">No classes have been added to {{to_user.USERNAME_FIELD}}'s schedule yet.</h2>
+                {% endif %}
+            {% endif %}
+
+            {% if the_schedule %}
+                <div class="container text-center">
+                    <div class="card-deck">
+                        
+                        <!-- 
+                            For comment in the_scedule.comments:
+                                create a card with the username, profile pic, and comment
+                        -->
+                            <div class="">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-5 mt-3 mb-3">
+                                        <div class="card ccard radius-t-0 h-100">
+
+                                            <div class="card-header pb-3 brc-secondary-l3">
+                                                <h5 class="card-title mb-2 mb-md-0 text-dark-m3 text-center">
+                                                    {% if user.email == to_user.email %}
+                                                        Comments:
+                                                    {% else %}
+                                                        Comments:
+                                                    {% endif %}
+                                                </h5>
+                                            </div>
+                                            <div class="card-body pt-2 pb-1">
+                                                {% for c in comments_list %}
+
+                                                    <div class="card mb-3" width="width:17rem">
+                                                        <div class="card-header"> 
+
+                                                            <div class="row row-cols-2">
+                                                                <div class="col-auto">
+                                                                    <img src="{{c.from_user.avatar}}" class="rounded-circle" height="30" width="30">
+                                                                </div>
+                                                                    <div class="col-auto"> {{c.from_user.USERNAME_FIELD}}:</div>
+                                                            </div> 
+                                                            
+                                                        </div>
+                                                        <div class="card-body"> {{c.text}} </div>
+                                                    </div>
+
+
+                                                {% endfor %}
+                                                
+                                                {% if not comments_list %}
+                                                    {% if user.email == to_user.email %}
+                                                        <p style="font-size: large;" class="text-center mt-3 mb-3">No comments have been left on your schedule yet.</p>
+                                                    {% else %}
+                                                        <p style="font-size: large;" class="text-center mt-3 mb-3">No comments have been left on {{to_user.USERNAME_FIELD}}'s schedule yet.</p>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                                <div class="card mb-3" width="width:17rem">
+                                                    <div class="card-header"> 
+
+                                                        <div class="row row-cols-2">
+                                                            <div class="col-auto">
+                                                                <img src="{{avatar}}" class="rounded-circle" height="30" width="30">
+                                                            </div>
+                                                                <div class="col-auto"> {{user.USERNAME_FIELD}}:</div>
+                                                        </div> 
+                                                        
+                                                    </div>
+                                                    <div class="card-body"> {{c.text}} 
+                                                        <form action="/schedule/{{to_user.id}}/add_comment/" method="post">
+                                                            {% csrf_token %}
+                                                            <!-- {{ form }} -->
+                                                            {% for field in form %}
+                                                              <p>{{field.label}}</p>
+                                                              <p>{{field}}</p>
+                                                              <br>
+                                                            {% endfor %}
+                                                            <input type="submit" value="Submit">
+                                                          </form>
+                                                    </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% comment %} can use this to add other content if we want to {% endcomment %}
+                                    {% comment %} <div class="col-md-5 mt-3 mb-3">
+                                        other stuff
+                                    </div> {% endcomment %}
+
+                                </div>
+                            </div>
+                            
+
+                    </div>
+                </div>
+            {% else %}
+                <h1>No classes to see here!</h1>
+            {% endif %}
+        </body>
+    {% endblock %}
+
+</html>
